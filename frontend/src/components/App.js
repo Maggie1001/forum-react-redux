@@ -5,12 +5,9 @@ import { getAllCategories } from '../actions/index.js'
 
 class App extends Component {
 
-  state = {
-    categories : []
-  }
 
   componentDidMount(){
-    console.log(this.props.getCategories())
+    this.props.getCategories()
   }
 
   render() {
@@ -23,15 +20,18 @@ class App extends Component {
   }
 }
 
-function mapStateToProps(props){
+function mapStateToProps(categories){
   return {
+
+    categories : categories.post
+
   }
 }
 
 function mapDispatchToProps(dispatch){
 
   return{
-    
+
     getCategories : getAllCategories(dispatch)
 
 
