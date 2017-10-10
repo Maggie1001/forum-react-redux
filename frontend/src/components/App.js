@@ -1,27 +1,43 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { connect } from 'react-redux';
+import { getAllCategories } from '../actions/index.js'
 
 class App extends Component {
+
+  state = {
+    categories : []
+  }
+
+  componentDidMount(){
+    console.log(this.props.getCategories())
+  }
+
   render() {
     console.log(this.props)
     return (
       <div className="App">
-        Hello World
+
       </div>
     );
   }
 }
 
-
-function mapStateToProps(categories){
-
-  return{
-    categories
+function mapStateToProps(props){
+  return {
   }
-
-
-
 }
 
-export default connect(mapStateToProps)(App)
+function mapDispatchToProps(dispatch){
+
+  return{
+    
+    getCategories : getAllCategories(dispatch)
+
+
+  }
+}
+
+
+
+export default connect( mapStateToProps,mapDispatchToProps)(App)

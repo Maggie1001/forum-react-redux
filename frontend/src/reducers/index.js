@@ -1,20 +1,17 @@
 import {combineReducers} from 'redux'
+
 import {
   ADD_POST,
   DELETE_POST,
-  UPDATE_POST
+  UPDATE_POST,
+  RECEIVE_CATEGORIES
 } from '../actions'
 
+const initialState = {}
 
-const initialCategoryState = {
-  kudler : "Cool"
-}
-
-
-
-
-function post(state = initialCategoryState, action) {
+function post(state = initialState, action) {
   const {post} = action
+
 
   switch(action.type){
     case ADD_POST :
@@ -30,11 +27,14 @@ function post(state = initialCategoryState, action) {
       let updatedState = state.filter((p)=> (
         p.id !== post.id
       ))
-      return{
+      return {
         ...updatedState,
         post
       }
-
+    case RECEIVE_CATEGORIES :
+      return {
+        post
+      }
     default :
       return state
   }
@@ -43,4 +43,6 @@ function post(state = initialCategoryState, action) {
 }
 
 
-export default post
+export default combineReducers({
+  post,
+})

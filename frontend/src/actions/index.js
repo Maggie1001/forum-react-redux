@@ -1,6 +1,24 @@
+import * as APIUtil from '../utils/api';
+
+export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES";
+
 export const ADD_POST = 'ADD_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const UPDATE_POST = 'UPDATE_POST'
+
+
+export const receiveCategories = ({categories}) => {{
+  debugger
+  type: RECEIVE_CATEGORIES,
+  categories
+}};
+
+export const getAllCategories = (dispatch) => () => {
+  APIUtil
+    .getAllCategories()
+    .then(categories => dispatch(receiveCategories(categories)))
+};
+
 
 export function addPost ({ category, post }) {
   return {
