@@ -33,7 +33,7 @@ function post(state = initialState, action) {
       }
     case RECEIVE_CATEGORIES :
       return {
-        post
+        ben : "kudler"
       }
     default :
       return state

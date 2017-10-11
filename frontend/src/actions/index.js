@@ -7,8 +7,7 @@ export const DELETE_POST = 'DELETE_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 
 
-export const receiveCategories = ({categories}) => {{
-  debugger
+export const receiveCategories = (categories) => {{
   type: RECEIVE_CATEGORIES,
   categories
 }};

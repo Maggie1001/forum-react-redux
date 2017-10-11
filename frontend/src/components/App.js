@@ -10,7 +10,6 @@ class App extends Component {
   }
 
   componentDidMount(){
-    console.log(this.props.getCategories())
   }
 
   render() {
@@ -25,6 +24,7 @@ class App extends Component {
 
 function mapStateToProps(props){
   return {
+    props
   }
 }
 
