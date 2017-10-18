@@ -10,8 +10,8 @@ import {
 const initialState = {}
 
 function post(state = initialState, action) {
+  
   const {post} = action
-
 
   switch(action.type){
     case ADD_POST :
@@ -33,7 +33,7 @@ function post(state = initialState, action) {
       }
     case RECEIVE_CATEGORIES :
       return {
-        ben : "kudler"
+        categories : action.categories
       }
     default :
       return state
@@ -46,3 +46,5 @@ function post(state = initialState, action) {
 export default combineReducers({
   post,
 })
+
+

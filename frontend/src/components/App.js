@@ -5,23 +5,42 @@ import { getAllCategories } from '../actions/index.js'
 
 class App extends Component {
 
+  state = {
 
-  componentDidMount(){
-    this.props.getCategories()
+    categories : []
+
   }
 
+
+  componentWillMount(){
+    this.props.getCategories()
+   
+  }
+
+
   render() {
-    console.log(this.props)
+    console.log(this.props.categories)
     return (
       <div className="App">
+      <ul>
+        {this.props.categories ? (
+          this.props.categories.map((category) => {
+            return <li>{category.path}</li>
 
+          })
+          ) : (
+          null
+          )
+        }
+      </ul>
       </div>
     );
   }
 }
 
-function mapStateToProps(categories){
+function mapStateToProps(state,props){
   return {
+    categories : state.post.categories
   }
 }
 
@@ -34,6 +53,8 @@ function mapDispatchToProps(dispatch){
 
   }
 }
+
+
 
 
 
