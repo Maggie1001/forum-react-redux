@@ -1,61 +1,21 @@
-import React, { Component } from 'react';
-import '../App.css';
-import { connect } from 'react-redux';
-import { getAllCategories } from '../actions/index.js'
+import React from 'react'
+import { Route } from 'react-router-dom'
+import Home from './Home'
+import Category from './Category'
+import Post from './Post'
+import '../App.css'
 
-class App extends Component {
+const App = () => {
 
-  state = {
-
-    categories : []
-
-  }
-
-
-  componentWillMount(){
-    this.props.getCategories()
-   
-  }
-
-
-  render() {
-    console.log(this.props.categories)
-    return (
-      <div className="App">
-      <ul>
-        {this.props.categories ? (
-          this.props.categories.map((category) => {
-            return <li>{category.path}</li>
-
-          })
-          ) : (
-          null
-          )
-        }
-      </ul>
+  return(
+      <div>
+        <Route exact path='/' render={() => (
+          <Home/>
+        )}/>
+        <Route path="/category/:category" component={Category}/>
+        <Route path="/post/:post" component={Post}/>
       </div>
-    );
+    )
   }
-}
 
-function mapStateToProps(state,props){
-  return {
-    categories : state.post.categories
-  }
-}
-
-function mapDispatchToProps(dispatch){
-
-  return{
-
-    getCategories : getAllCategories(dispatch)
-
-
-  }
-}
-
-
-
-
-
-export default connect( mapStateToProps,mapDispatchToProps)(App)
+export default App
