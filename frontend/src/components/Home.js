@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { getAllCategories, getAllPosts } from '../actions/index.js'
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
+import Modal from 'react-modal'
+import AddPostForm from './AddPostForm'
 
 
 class Home extends Component {
@@ -11,7 +13,8 @@ class Home extends Component {
   state = {
 
     posts : [],
-    sortChoice : "voteHigh"
+    sortChoice : "voteHigh",
+    open : false
 
   }
 
@@ -28,6 +31,25 @@ class Home extends Component {
   }
 
 
+  addPost = (e) => {
+    e.preventDefault()
+    
+
+  }
+
+  modalToggle = () => {
+    if(this.state.open){
+      var change = false;
+    }else{
+      var change = true;
+    }
+
+    this.setState({
+      open : change
+    })
+
+  }
+
 
 
 
@@ -35,7 +57,7 @@ class Home extends Component {
     let posts;
     if(e.target.value === "voteHigh"){
       posts = this.props.posts.sort((a,b) => {
-          const keyA = a.voteScore
+          const keyA = a.voteScore;
           const keyB = b.voteScore;
           if(keyA < keyB) return -1;
           if(keyA > keyB) return 1;
@@ -43,18 +65,25 @@ class Home extends Component {
       })
     }else if(e.target.value === "voteLow"){
       posts =  this.props.posts.sort((a,b) => {
-          const keyA = a.voteScore
+          const keyA = a.voteScore;
           const keyB = b.voteScore;
           if(keyA > keyB) return -1;
           if(keyA < keyB) return 1;
           return 0;
       })
     }else{
-      posts = this.props.posts
+      posts =  this.props.posts.sort((a,b) => {
+          const keyA = a.timestamp;
+          const keyB = b.timestamp;
+          if(keyA > keyB) return -1;
+          if(keyA < keyB) return 1;
+          return 0;
+      })  
     }
 
     this.setState({
-      posts : posts
+      posts : posts,
+      sortChoice : e.target.value
     })
 
 
@@ -107,6 +136,14 @@ class Home extends Component {
               )
             }
           </ul>
+          <button type="button" onClick={this.modalToggle}>Add Post</button>
+          <Modal
+            isOpen={this.state.open}
+            onRequestClose={this.modalToggle}
+            contentLabel="Modal"
+          >
+            <AddPostForm categories={this.props.categories} change={this.addPost} />
+          </Modal>
         </div>
       </div>
     );
