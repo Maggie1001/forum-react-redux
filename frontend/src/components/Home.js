@@ -17,26 +17,53 @@ class Home extends Component {
 
   componentWillMount(){
     this.props.getCategories()
-    this.props.getPosts()
-   
+    this.props.getPosts() 
+
   }
 
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      posts : nextProps.posts
+    })  
+  }
+
+
+
+
+
   sortPosts = (e) => {
-    e.preventDefault
+    let posts;
     if(e.target.value === "voteHigh"){
-      //sort by high
+      posts = this.props.posts.sort((a,b) => {
+          const keyA = a.voteScore
+          const keyB = b.voteScore;
+          if(keyA < keyB) return -1;
+          if(keyA > keyB) return 1;
+          return 0;
+      })
     }else if(e.target.value === "voteLow"){
-      //sort by low
+      posts =  this.props.posts.sort((a,b) => {
+          const keyA = a.voteScore
+          const keyB = b.voteScore;
+          if(keyA > keyB) return -1;
+          if(keyA < keyB) return 1;
+          return 0;
+      })
     }else{
-      //sort by date
+      posts = this.props.posts
     }
+
+    this.setState({
+      posts : posts
+    })
+
 
   }
 
 
 
   render() {
-    console.log(this.state.sortChoice)
+
     return (
       <div className="App">
         <div>
@@ -66,8 +93,8 @@ class Home extends Component {
             </select>
           </div>
           <ul>
-           {this.props.posts ? (
-              this.props.posts.map((post, counter) => {
+           {this.state.posts ? (
+              this.state.posts.map((post, counter) => {
                 return <li key={counter}>
                   <Link
                     to= {`/post/${post.id}`}

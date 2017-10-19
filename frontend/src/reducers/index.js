@@ -45,11 +45,7 @@ function post(state = initialState, action) {
         if(keyA < keyB) return -1;
         if(keyA > keyB) return 1;
         return 0;
-
-
-
     })
-    console.log(posts)
       return{
         posts : posts
       }
