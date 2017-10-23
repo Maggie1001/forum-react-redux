@@ -23,3 +23,9 @@ To get started developing right away:
 ## API Server
 
 Information about the API server and how to use it can be found in its [README file](api-server/README.md).
+
+
+
+## Contributing
+
+Please make a pull request from a seperate branch and keep clear commit messages. Any new feature or clean up is welcome!
