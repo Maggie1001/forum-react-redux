@@ -1,3 +1,12 @@
+# React-Redux Forum
+
+An anonymous forum for posting comments on a few categories built with create-react-app with the React-Redux and Thunk libaries. 
+
+# Dependencies
+
+You will have to have create-react-app, React-Redux, Thunk, React-Router and React-Modal installed
+
+
 ## Start Developing
 
 To get started developing right away:
