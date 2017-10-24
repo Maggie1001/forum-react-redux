@@ -3,6 +3,7 @@ import * as APIUtil from '../utils/api';
 export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES";
 
 export const ADD_POST = 'ADD_POST'
+export const CREATE_POST = 'CREATE_POST'
 export const DELETE_POST = 'DELETE_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
@@ -46,15 +47,27 @@ export const getPost = (post) => ({
 });
 
 
+// export function addPost (post) {
+//   APIUtil
+//     .createNewPost(post)
 
+// }
 
-export function addPost ({ category, post }) {
-  return {
-    type: ADD_POST,
-    category,
-    post,
+export const createPost = (post) => ({
+
+  type: ADD_POST,
+  post
+
+})
+
+export function addPost(post){
+  return function(dispatch){
+    return APIUtil.createNewPost(post)
+    .then((post) => dispatch(createPost(post)))
   }
 }
+
+
 
 export function deletePost ({ post }) {
   return {

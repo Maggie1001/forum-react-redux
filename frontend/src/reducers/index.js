@@ -15,13 +15,12 @@ const initialState = {}
 function post(state = initialState, action) {
   
   const {post} = action
-
   switch(action.type){
-    // case ADD_POST :
-    //   return{
-    //     ...state,
-    //     post
-    //   }
+    case ADD_POST :
+      return{
+        ...state,
+        post
+      }
     // case DELETE_POST :
     //   return state.filter((p)=> (
     //     p.id !== post.id
