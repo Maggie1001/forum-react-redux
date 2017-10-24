@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { connect } from 'react-redux';
-import { getAllCategories, getAllPosts } from '../actions/index.js'
+import { getAllCategories, getAllPosts, addPost } from '../actions/index.js'
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import Modal from 'react-modal'
@@ -9,6 +9,7 @@ import AddPostForm from './AddPostForm'
 
 
 class Home extends Component {
+
 
   state = {
 
@@ -31,11 +32,14 @@ class Home extends Component {
   }
 
 
-  addPost = (e) => {
+  addPost = (e,info) => {
     e.preventDefault()
-    
+    this.props.createPost(info)
+    this.modalToggle()
 
   }
+
+
 
   modalToggle = () => {
     if(this.state.open){
@@ -92,7 +96,6 @@ class Home extends Component {
 
 
   render() {
-
     return (
       <div className="App">
         <div>
@@ -164,7 +167,8 @@ function mapDispatchToProps(dispatch){
   return{
 
     getCategories : getAllCategories(dispatch),
-    getPosts : getAllPosts(dispatch)
+    getPosts : getAllPosts(dispatch),
+    createPost : (data) => dispatch(addPost(data))
 
 
   }
