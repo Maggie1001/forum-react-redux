@@ -42,6 +42,7 @@ function getByCategory (token, category) {
   })
 }
 
+
 function get (token, id) {
   return new Promise((res) => {
     const posts = getData(token)
@@ -54,6 +55,7 @@ function get (token, id) {
 }
 
 function getAll (token) {
+  debugger
   return new Promise((res) => {
     const posts = getData(token)
     let keys = Object.keys(posts)
@@ -63,6 +65,7 @@ function getAll (token) {
 }
 
 function add (token, post) {
+  debugger
   return new Promise((res) => {
     let posts = getData(token)
 
