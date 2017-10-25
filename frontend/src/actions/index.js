@@ -47,38 +47,18 @@ export const getPost = (post) => ({
 });
 
 
-// export function addPost (post) {
-//   APIUtil
-//     .createNewPost(post)
 
-// }
 
 export const createPost = (post) => ({
 
   type: ADD_POST,
   post
 
-})
-
-export function addPost(post){
-  return function(dispatch){
-    return APIUtil.createNewPost(post)
-    .then((post) => dispatch(createPost(post)))
-  }
-}
+});
 
 
+export const addPost = post => dispatch => (
+ APIUtil.createNewPost(post)
+ .then(post => dispatch(createPost(post)))
+);
 
-export function deletePost ({ post }) {
-  return {
-    type: DELETE_POST,
-    post
-  }
-}
-
-export function updatePost ({post}){
-  return{
-    type: UPDATE_POST,
-    post
-  }
-}

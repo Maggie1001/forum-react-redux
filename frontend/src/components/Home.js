@@ -41,6 +41,7 @@ class Home extends Component {
 
 
 
+
   modalToggle = () => {
     if(this.state.open){
       var change = false;

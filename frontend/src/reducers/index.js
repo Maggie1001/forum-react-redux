@@ -17,9 +17,9 @@ function post(state = initialState, action) {
   const {post} = action
   switch(action.type){
     case ADD_POST :
+      let finalPosts = state.posts.concat(post)
       return{
-        ...state,
-        post
+        posts : finalPosts
       }
     // case DELETE_POST :
     //   return state.filter((p)=> (
@@ -77,6 +77,7 @@ function category(state = initialState, action){
 
 
 }
+
 
 
 
