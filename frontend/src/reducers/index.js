@@ -5,35 +5,31 @@ import {
   DELETE_POST,
   UPDATE_POST,
   RECEIVE_POSTS,
-  GET_POST,
+  GRAB_POST,
   RECEIVE_CATEGORIES,
-  GET_CATEGORY
+  GET_CATEGORY,
+  CATEGORY_POSTS,
+  GRAB_COMMENTS,
+  REMOVE_POST,
+  MODIFY_POST,
+  NEW_COMMENT,
+  REMOVE_COMMENT,
+  MODIFY_COMMENT
 } from '../actions'
 
 const initialState = {}
 
 function post(state = initialState, action) {
-  
+
   const {post} = action
+
   switch(action.type){
     case ADD_POST :
       let finalPosts = state.posts.concat(post)
       return{
         posts : finalPosts
       }
-    // case DELETE_POST :
-    //   return state.filter((p)=> (
-    //     p.id !== post.id
-    //   ))
-    // case UPDATE_POST :
-    //   let updatedState = state.filter((p)=> (
-    //     p.id !== post.id
-    //   ))
-    //   return {
-    //     ...updatedState,
-    //     post
-    //   }
-    case GET_POST :
+    case GRAB_POST :
       return{
         post
       }
@@ -48,6 +44,25 @@ function post(state = initialState, action) {
       return{
         posts : posts
       }
+    case CATEGORY_POSTS :
+    let categoryPosts = action.posts.sort((a,b) => {
+        const keyA = a.voteScore
+        const keyB = b.voteScore;
+        if(keyA < keyB) return -1;
+        if(keyA > keyB) return 1;
+        return 0;
+    })
+    return{
+      posts : categoryPosts
+    }
+    case REMOVE_POST :
+      return {
+        posts : state.posts
+      }
+    case MODIFY_POST :
+      return{
+        post
+      }
     default :
       return state
   }
@@ -59,7 +74,6 @@ function category(state = initialState, action){
 
 
   const {category} = action
-
 
   switch(action.type){
     case RECEIVE_CATEGORIES :
@@ -79,13 +93,58 @@ function category(state = initialState, action){
 }
 
 
+function comment(state = initialState, action){
+
+  const {comment} = action
+  switch(action.type){
+    case GRAB_COMMENTS :
+      let orderedComments = action.comments.sort((a,b) => {
+          const keyA = a.voteScore
+          const keyB = b.voteScore;
+          if(keyA > keyB) return -1;
+          if(keyA < keyB) return 1;
+          return 0;
+      })
+      return {
+        comments : orderedComments
+      }
+    case NEW_COMMENT :
+      let finalComments = state.comments.concat(comment)
+      return {
+        comments : finalComments
+      }
+    case REMOVE_COMMENT :
+      let filteredComments = state.comments.filter((comment) => comment.id !== action.comment)
+      return{
+        comments : filteredComments
+      }
+    case MODIFY_COMMENT :  
+      let editedComments = state.comments.filter((comment) => comment.id !== action.comment.id).concat(action.comment)
+      let newComments = editedComments.sort((a,b) => {
+          const keyA = a.voteScore
+          const keyB = b.voteScore;
+          if(keyA > keyB) return -1;
+          if(keyA < keyB) return 1;
+          return 0;
+      }) 
+      return{
+        comments :  newComments
+      }
+    default :
+      return state
+
+  }
+
+
+}
+
 
 
 
 
 
 export default combineReducers({
-  post, category
+  post, category, comment
 })
 
 

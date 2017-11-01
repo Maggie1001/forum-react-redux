@@ -21,9 +21,59 @@ export const createNewPost = (post) =>
      .then(res => res.json())
      .then(data => data)
  
+ export const postsForCategory = (category) => 
+   fetch(`${api}/${category}/posts`, { headers} )
+     .then(res => res.json())
+     .then(data => data)
 
- //figure out how to write create new post method
+ export const getOnePost = (post) => 
+   fetch(`${api}/posts/${post}`, { headers} )
+     .then(res => res.json())
+     .then(data => data)
 
- //move up all mounting stuff to app so that when app renders it passes all information to home
 
- //make add action in reducer work
+ export const commentsForPost = (post) => 
+   fetch(`${api}/posts/${post}/comments`, { headers} )
+     .then(res => res.json())
+     .then(data => data)
+ 
+
+export const removePost = (post) => 
+   fetch(`${api}/posts/${post}`, { headers, method : "DELETE"} )
+     .then(res => res.json())
+     .then(data => data)
+
+export const editPost = (post) => 
+   fetch(`${api}/posts/${post.id}`, { headers, method : "PUT", body: JSON.stringify(post)} )
+     .then(res => res.json())
+     .then(data => data)
+
+
+export const addComment = (comment) => 
+   fetch(`${api}/comments`, { headers, method : "POST" , body: JSON.stringify(comment)})
+     .then(res => res.json())
+     .then(data => data)
+
+
+export const deleteComment = (comment) => 
+   fetch(`${api}/comments/${comment}`, { headers, method : "DELETE"} )
+     .then(res => res.json())
+     .then(data => data)
+
+
+export const editComment = (comment) => 
+   fetch(`${api}/comments/${comment.id}`, { headers, method : "PUT", body: JSON.stringify(comment)} )
+     .then(res => res.json())
+     .then(data => data)
+ 
+
+export const voteComment = (comment, vote) => 
+   fetch(`${api}/comments/${comment}`, { headers, method : "POST", body : JSON.stringify({option:vote})} )
+     .then(res => res.json())
+     .then(data => data)
+
+export const votePost = (post, vote) => 
+   fetch(`${api}/posts/${post}`, { headers, method : "POST", body : JSON.stringify({option:vote})} )
+     .then(res => res.json())
+     .then(data => data)
+

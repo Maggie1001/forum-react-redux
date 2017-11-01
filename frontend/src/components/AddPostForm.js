@@ -30,32 +30,37 @@ class AddPostForm extends Component {
 
   render(){
     return (
-      <div>
+      <div className="add-post-form">
         <form onSubmit={(e) => this.props.change(e, this.state)}>
-          
-            <select value={this.state.category} onChange={(e) => this.handleChange(e,"category")}>
-            {
-              this.props.categories.map((category, counter) => {
-                return <option value={category.name} key={counter}>{category.name}</option>
+            <div className="add-post-form-header">
+              <div className="add-post-form-select">
+                <select value={this.state.category} onChange={(e) => this.handleChange(e,"category")}>
+                {
+                    this.props.categories.map((category, counter) => {
+                      return <option value={category.name} key={counter}>{category.name}</option>
 
-              })
-            }
-            </select>
-
-            <span>
-              Title
-              <input type="text" name="Title" value={this.state.title} onChange={(e) => this.handleChange(e, "title")}/>
-              Author
-              <input type="text" name="Author" value={this.state.author} onChange={(e) => this.handleChange(e, "author")}/>
-            </span>
-
-            <br/>
-            <br/>
+                    })
+                  }
+                </select>
+              </div>
+              <div>
+                Title
+                <input type="text" name="Title" value={this.state.title} onChange={(e) => this.handleChange(e, "title")}/>
+              </div>
+              <div>
+                Author
+                <input type="text" name="Author" value={this.state.author} onChange={(e) => this.handleChange(e, "author")}/>
+              </div>
+            </div>
+            <div className="add-post-form-post-header">
               Post
-              <textarea type="text" name="Body" value={this.state.body} onChange={(e) => this.handleChange(e, "body")} rows="20" cols="100"/>
+            </div>
+            
+            <div>
+              <textarea className="add-post-form-text-area" type="text" name="Body" value={this.state.body} onChange={(e) => this.handleChange(e, "body")} rows="20" cols="100"/>
+            </div>
 
-            <br/>
-            <input type="submit" value="Submit" />
+            <input className="add-post-form-input" type="submit" value="Submit" />
 
         </form>
       </div>

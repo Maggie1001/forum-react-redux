@@ -3,7 +3,8 @@ import '../App.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
-import { getCategory } from '../actions/index.js'
+import { getCategory, postsByCategory } from '../actions/index.js'
+
 
 
 class Category extends Component {
@@ -11,18 +12,15 @@ class Category extends Component {
 
   componentDidMount(){
     let category = this.props.match.params.category
-    this.props.getCategory({category})
+    this.props.getPostCategories(category)
   }
 
 
   render() {
-
     return (
-      <div>
-        {this.props.category ? (
-          <div>
-            {this.props.category.category}
-          </div>
+      <div className="category-wrapper">
+        {this.props.match.params.category ? (
+            <h1>{this.props.match.params.category}</h1>
 
         ) : (
 
@@ -30,6 +28,21 @@ class Category extends Component {
 
         )
       }
+      <ul>
+      {this.props.posts ? (
+        this.props.posts.map((post, counter) => {
+          return <li key={counter}>
+                  <Link
+                    to= {`/post/${post.id}`}
+                    >{post.title}
+                  </Link>
+                </li>
+              })
+          ) : (
+            null
+          )
+        }
+      </ul>
       </div>
     );
   }
@@ -37,14 +50,15 @@ class Category extends Component {
 
 function mapStateToProps(state,props){
   return {
-    category : state.category.category
+    category : state.category.category,
+    posts : state.post.posts
   }
 }
 
 function mapDispatchToProps(dispatch){
   return{
 
-    getCategory : category => dispatch(getCategory(category))
+    getPostCategories : category => dispatch(postsByCategory(category))
 
   }
 }

@@ -1,28 +1,269 @@
+html{
+  background: url("./images/polar-bear.jpg"), radial-gradient(#396000, #00FFFF);
+  background-size: cover;
+  background-blend-mode: multiply;
+  box-sizing: border-box;
+}
+
+
+
 .App {
+  padding-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+html *{
+  color: #00FFFF;
+}
+
+h1{
+  border-bottom:thick solid black;
+  width: 80%;
+  color: #02BAFF;
+}
+
+
+ul {
+  list-style-type: none;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0px;
+}
+
+
+a{
+  font-size: 30px;
+  text-decoration: none;
+}
+
+button {
+  margin: 0 auto;
+  font-size: 0.5em;
+  padding: 1rem 2rem;
+  display: block;
+  background-color: #009ac9;
+  border: 1px solid transparent;
+  color: #ffffff;
+  font-weight: 300;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  background-color: #ffffff;
+  color: #009ac9;
+  border-color: #009ac9;
+}
+
+
+.categories-list-home{
+  padding-bottom: 50px;
+}
+
+.post-list-home{
+  padding-top: 20px;
+}
+
+.home-select-wrapper{
+  position: absolute;
+  left: 30%;
+  right: 30%;
+  padding-bottom: 10px;
+}
+
+.home-select{
+  display: flex;
+  align-items: column;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+   height: 23px;
+   overflow: hidden;
+   width: 200px;
+   background-color: aqua;
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   border-radius: 10px;
+   opacity: 0.8;
+
+}
+
+
+.home-select select{
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  height: 29px;
+  padding: 5px; /* If you add too much padding here, the options won't show in IE */
+  width: 268px;
+  color: black;
+
+ }
+
+.add-post-form form{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  width: 100%;
+}
+
+.add-post-form-input{
+  align-self: center;
+  margin: 0 auto;
+  font-size: 0.2em;
+  padding: 0.6rem 0.6rem;
+  display: block;
+  background-color: #009ac9;
+  border: 1px solid transparent;
+  color: #ffffff;
+  font-weight: 300;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+}
+
+.add-post-form div input{
+  border:0.2em solid aqua;
+}
+
+.add-post-form textarea{
+  border: 0.2em solid aqua;
+  margin: 0.5px;
+}
+
+
+.add-post-form-text-area{
+  width: 100%;
+  align-self: center;
+}
+
+.add-post-form-select{
+  background: url(http://i62.tinypic.com/15xvbd5.png) no-repeat 96% 0;
+   height: 23px;
+   background-color: aqua;
+   -webkit-border-radius: 10px;
+   -moz-border-radius: 10px;
+   border-radius: 10px;
+   opacity: 0.8;
+}
+
+.add-post-form-select select{
+  background: transparent;
+  border: none;
+  font-size: 14px;
+  height: 29px;
+  float: left;
+   /* If you add too much padding here, the options won't show in IE */
+  width: 100%;
+  color: black;
+ }
+
+
+
+
+
+.add-post-form-header div{
+  display: flex;
+  justify-content: flex-start;
+  margin: 3px;
+}
+
+
+
+.add-post-form-post-header{
+  align-self: center;
+}
+
+
+.category-wrapper{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
   text-align: center;
 }
 
-.App-logo {
-  animation: App-logo-spin infinite 20s linear;
-  height: 80px;
+.post-info{
+  display: flex;
+  font-size: 1.3em;
+
 }
 
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
+.post-info span{
+  padding: 10px;
 }
 
-.App-title {
-  font-size: 1.5em;
+.post-voting{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding-top: 20px;
+  padding-bottom: 50px;
 }
 
-.App-intro {
-  font-size: large;
+.post-voting button{
+  background: url(http://i59.tinypic.com/24g2bmv.jpg)
+  align-self: center;
+  margin: 0 auto;
+  font-size: 0.2em;
+  padding: 0.4rem 0.4rem;
+  display: block;
+  background-color: #009ac9;
+  color: #ffffff;
+  font-weight: 300;
+  -webkit-transition: all 0.3s ease-in-out;
+  -moz-transition: all 0.3s ease-in-out;
+  transition: all 0.3s ease-in-out;
+
 }
 
-@keyframes App-logo-spin {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+.post-buttons{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-buttons *{
+  padding: 10px;
+}
+
+
+.comment-buttons{
+  display: flex;
+  justify-content: center;
+}
+
+.comment-buttons *{
+  padding: 2px;
+}
+
+
+
+@media only screen and (min-width: 480px) {
+
+
+}
+
+@media only screen and (min-width: 768px),
+       only screen and (min-width: 700px) and (orientation: landscape) {
+
+
+  
+}
+
+@media only screen and (min-width: 1140px) {
+
+
 }

@@ -99,7 +99,8 @@ class Home extends Component {
   render() {
     return (
       <div className="App">
-        <div>
+      <h1>CATEGORIES</h1>
+        <div className="categories-list-home">
           <ul>
             {this.props.categories ? (
               this.props.categories.map((category, counter) => {
@@ -117,15 +118,19 @@ class Home extends Component {
           </ul>
         </div>
 
+
+        <h1>POSTS</h1>
         <div>
-          <div>
-            <select value={this.state.sortChoice} onChange={(e) => this.sortPosts(e)}>
-              <option value="date">Sort By Date</option>
-              <option value="voteHigh">Order By High Votes</option>
-              <option value="voteLow">Order by Low Votes</option>
-            </select>
+          <div className="home-select-wrapper">
+            <div className="home-select">
+              <select value={this.state.sortChoice} onChange={(e) => this.sortPosts(e)}>
+                <option value="date">Sort By Date</option>
+                <option value="voteHigh">Order By High Votes</option>
+                <option value="voteLow">Order by Low Votes</option>
+              </select>
+            </div>
           </div>
-          <ul>
+          <ul className="post-list-home">
            {this.state.posts ? (
               this.state.posts.map((post, counter) => {
                 return <li key={counter}>
