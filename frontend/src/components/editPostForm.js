@@ -36,7 +36,7 @@ class EditPostForm extends Component {
 
   render(){
     return (
-      <div>
+      <div className="add-post-form">
         <form onSubmit={(e) => this.props.change(e, this.state)}>
           <textarea type="text" name="Title" value={this.state.title} onChange={(e) => this.handleChange(e, "title")} rows="2" cols="50"/>
           <textarea type="text" name="Body" value={this.state.body} onChange={(e) => this.handleChange(e, "body")} rows="20" cols="100"/>

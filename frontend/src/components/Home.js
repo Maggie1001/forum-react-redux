@@ -120,8 +120,7 @@ class Home extends Component {
 
 
         <h1>POSTS</h1>
-        <div>
-          <div className="home-select-wrapper">
+        <div className="categories-home">
             <div className="home-select">
               <select value={this.state.sortChoice} onChange={(e) => this.sortPosts(e)}>
                 <option value="date">Sort By Date</option>
@@ -129,7 +128,6 @@ class Home extends Component {
                 <option value="voteLow">Order by Low Votes</option>
               </select>
             </div>
-          </div>
           <ul className="post-list-home">
            {this.state.posts ? (
               this.state.posts.map((post, counter) => {

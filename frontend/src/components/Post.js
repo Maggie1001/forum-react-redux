@@ -110,6 +110,15 @@ class Post extends Component {
             </div>
 
             <div className="post-body">
+              <div className="post-voting">
+
+                <span><button type="button" onClick={this.upPostVote}>""</button></span>
+
+                <span>{this.props.post.voteScore}</span>
+
+                <span><button className="post-voting-down" type="button" onClick={this.downPostVote}>""</button></span>
+              </div>
+
               <span >{this.props.post.body}</span>
             </div>
 
@@ -125,11 +134,6 @@ class Post extends Component {
                 </div>
             </div>
 
-              <div className="post-voting">
-                <span><button type="button" onClick={this.upPostVote}>Up Vote</button></span>
-                <span>{this.props.post.voteScore}</span>
-                <span><button type="button" onClick={this.downPostVote}>Down Vote</button></span>
-              </div>
 
 
             <div>
@@ -159,25 +163,36 @@ class Post extends Component {
         )
       }
 
-        <ul>
+        <ul className="comments">
            {this.props.comments ? (
               this.props.comments.map((comment) => {
                 return <li key={comment.id}>
-                  <span>{comment.body}</span>
+                <div className="comment-body">
+                    <div className="post-voting">
+                      <span><button type="button" onClick={(id) => this.upVote(comment.id)}>""</button></span>
+
+                      <span>{comment.voteScore}</span>
+
+                      <span><button className="post-voting-down" type="button" onClick={(id) => this.downVote(comment.id)}>""</button></span>
+
+                    </div>
+
+                    <span>{comment.body}</span>
+
+                  </div>
                   <span>{comment.author}</span>
+
                   <div className="comment-buttons">
                   <div>
                     <button type="button"  onClick={(id) => this.deleteComment(comment.id)}>Delete Comment</button>
                   </div>
+
                   <div>
                     <button type="button"  onClick={() => this.modalToggle("openEditComment", comment)}>Edit Comment</button>
                   </div>
+
                   </div>
-                  <div className="post-voting">
-                    <span><button type="button" onClick={(id) => this.upVote(comment.id)}>Up Vote</button></span>
-                    <span>{comment.voteScore}</span>
-                    <span><button type="button" onClick={(id) => this.downVote(comment.id)}>Down Vote</button></span>
-                  </div>
+
                 </li>
               })
               ) : (

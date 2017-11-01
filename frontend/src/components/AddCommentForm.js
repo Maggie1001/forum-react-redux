@@ -35,7 +35,7 @@ class AddCommentForm extends Component {
 
   render(){
     return (
-      <div>
+      <div className="add-post-form">
         <form onSubmit={(e) => this.props.change(e, this.state)}>
           
             <span>
@@ -49,7 +49,7 @@ class AddCommentForm extends Component {
               <textarea type="text" name="Body" value={this.state.body} onChange={(e) => this.handleChange(e, "body")} rows="20" cols="100"/>
 
             <br/>
-            <input type="submit" value="Submit" />
+            <input className="add-post-form-input"  type="submit" value="Submit" />
 
         </form>
       </div>

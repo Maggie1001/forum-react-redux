@@ -57,7 +57,7 @@ class AddPostForm extends Component {
             </div>
             
             <div>
-              <textarea className="add-post-form-text-area" type="text" name="Body" value={this.state.body} onChange={(e) => this.handleChange(e, "body")} rows="20" cols="100"/>
+              <textarea className="add-post-form-text-area" type="text" name="Body" value={this.state.body} onChange={(e) => this.handleChange(e, "body")} rows="10" cols="20"/>
             </div>
 
             <input className="add-post-form-input" type="submit" value="Submit" />

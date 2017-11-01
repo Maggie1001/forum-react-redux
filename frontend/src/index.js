@@ -9,7 +9,7 @@ import { BrowserRouter } from 'react-router-dom'
 import { createStore, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import index from './reducers/index';
-
+import "typeface-raleway";
 const store = createStore(index, applyMiddleware(thunk));
 
 // const store = createStore(
