@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { connect } from 'react-redux';
-import { getAllCategories, getAllPosts, addPost } from '../actions/index.js'
+import { getAllCategories, getAllPosts, addPost, votePost, getComments } from '../actions/index.js'
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import Modal from 'react-modal'
@@ -21,7 +21,10 @@ class Home extends Component {
 
   componentWillMount(){
     this.props.getCategories()
-    this.props.getPosts() 
+    this.props.getPosts()
+    if(this.props.posts){
+      this.findComments(this.props.posts)
+    }
 
   }
 
@@ -31,11 +34,32 @@ class Home extends Component {
     })  
   }
 
+  findComments = (posts) => {
+    for(post in posts){
+      this.props.getComments(post.id)
+    } 
+    
+  }
+
+
+  sortComments = () => {
+
+  }
 
   addPost = (e,info) => {
     e.preventDefault()
     this.props.createPost(info)
     this.modalToggle()
+
+  }
+
+    upPostVote = () =>{
+    this.props.votePost(this.props.post.id, "upVote")
+
+  }
+
+  downPostVote = () =>{
+    this.props.votePost(this.props.post.id, "downVote")
 
   }
 
@@ -96,7 +120,7 @@ class Home extends Component {
 
 
 
-  render() {
+  render() {    
     return (
       <div className="App">
       <h1>CATEGORIES</h1>
@@ -106,7 +130,7 @@ class Home extends Component {
               this.props.categories.map((category, counter) => {
                 return <li key={counter}>
                   <Link
-                    to= {`/category/${category.path}`}
+                    to= {`/${category.path}`}
                     >{category.name}
                   </Link>
                 </li>
@@ -133,9 +157,18 @@ class Home extends Component {
               this.state.posts.map((post, counter) => {
                 return <li key={counter}>
                   <Link
-                    to= {`/post/${post.id}`}
+                    to= {`/${post.category}/${post.id}`}
                     >{post.title}
                   </Link>
+                  <div className="post-info">
+                    <span>Author: {post.author}</span>
+                    {this.props.comments ? (
+
+                      <span> Comment Count: {this.props.comments.length}</span>
+                    ) : (
+                      null
+                    )}
+                  </div>
                 </li>
               })
               ) : (
@@ -160,9 +193,11 @@ class Home extends Component {
 
 
 function mapStateToProps(state,props){
+  console.log(state.comment.comments)
   return {
     categories : state.category.categories,
-    posts : state.post.posts
+    posts : state.post.posts,
+    comments : state.comment.comments
   }
 }
 
@@ -172,7 +207,9 @@ function mapDispatchToProps(dispatch){
 
     getCategories : getAllCategories(dispatch),
     getPosts : getAllPosts(dispatch),
-    createPost : (data) => dispatch(addPost(data))
+    createPost : (data) => dispatch(addPost(data)),
+    getComments : post => dispatch(getComments(post)),
+    votePost : (post, option) => dispatch(votePost(post,option))
 
 
   }

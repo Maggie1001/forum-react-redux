@@ -25,6 +25,7 @@ export const createNewPost = (post) =>
    fetch(`${api}/${category}/posts`, { headers} )
      .then(res => res.json())
      .then(data => data)
+ 
 
  export const getOnePost = (post) => 
    fetch(`${api}/posts/${post}`, { headers} )

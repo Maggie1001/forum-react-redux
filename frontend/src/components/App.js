@@ -12,8 +12,8 @@ const App = () => {
         <Route exact path='/' render={() => (
           <Home/>
         )}/>
-        <Route path="/category/:category" component={Category}/>
-        <Route path="/post/:post" component={Post}/>
+        <Route exact path="/:category/:post" component={Post}/>
+        <Route exact path="/:category" component={Category}/>
       </div>
     )
   }

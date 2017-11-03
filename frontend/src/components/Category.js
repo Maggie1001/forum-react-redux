@@ -17,6 +17,7 @@ class Category extends Component {
 
 
   render() {
+    console.log(this.props.children)
     return (
       <div className="category-wrapper">
         {this.props.match.params.category ? (
@@ -33,7 +34,7 @@ class Category extends Component {
         this.props.posts.map((post, counter) => {
           return <li key={counter}>
                   <Link
-                    to= {`/post/${post.id}`}
+                    to= {`/${post.category}/${post.id}`}
                     >{post.title}
                   </Link>
                 </li>

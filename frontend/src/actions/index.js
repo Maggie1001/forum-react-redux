@@ -76,7 +76,7 @@ export const grabComments = (comments) => ({
   comments
 });
 
-export const getComments = post => dispatch => (
+export const getComments = post => dispatch =>(
 
  APIUtil.commentsForPost(post)
  .then(comments => dispatch(grabComments(comments)))
