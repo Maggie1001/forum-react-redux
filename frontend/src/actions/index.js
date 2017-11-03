@@ -10,6 +10,7 @@ export const GET_POST = 'GET_POST'
 export const GRAB_POST = 'GRAB_POST'
 export const REMOVE_POST = 'REMOVE_POST'
 export const MODIFY_POST = 'MODIFY_POST'
+export const HOME_VOTE_POST = 'HOME_VOTE_POST'
 
 export const GRAB_COMMENTS = 'GRAB_COMMENTS'
 export const NEW_COMMENT = 'NEW_COMMENT'
@@ -175,6 +176,21 @@ export const vote = (comment,vote) => dispatch => (
 export const votePost = (post, vote) => dispatch => (
  APIUtil.votePost(post, vote)
  .then(post => dispatch(modifyPost(post)))
+);
+
+
+export const homeVotePost = (post) => ({
+
+  type: HOME_VOTE_POST,
+  post
+
+
+});
+
+
+export const votePostHome = (post, vote) => dispatch => (
+ APIUtil.votePost(post, vote)
+ .then(post => dispatch(homeVotePost(post)))
 );
 
 

@@ -14,7 +14,8 @@ import {
   MODIFY_POST,
   NEW_COMMENT,
   REMOVE_COMMENT,
-  MODIFY_COMMENT
+  MODIFY_COMMENT,
+  HOME_VOTE_POST
 } from '../actions'
 
 const initialState = {}
@@ -24,7 +25,8 @@ function post(state = initialState, action) {
   const {post} = action
   switch(action.type){
     case ADD_POST :
-      let finalPosts = state.posts.concat(post)
+      let finalPosts = state.posts.slice(0)
+      finalPosts = finalPosts.concat(post)
       return{
         posts : finalPosts
       }
@@ -36,8 +38,8 @@ function post(state = initialState, action) {
     let posts = action.posts.sort((a,b) => {
         const keyA = a.voteScore
         const keyB = b.voteScore;
-        if(keyA < keyB) return -1;
-        if(keyA > keyB) return 1;
+        if(keyA > keyB) return -1;
+        if(keyA < keyB) return 1;
         return 0;
     })
       return{
@@ -61,6 +63,18 @@ function post(state = initialState, action) {
     case MODIFY_POST :
       return{
         post
+      }
+    case HOME_VOTE_POST:
+      let editedPosts = state.posts.filter((post) => post.id !== action.post.id).concat(action.post)
+      let newPosts = editedPosts.sort((a,b) => {
+          const keyA = a.voteScore
+          const keyB = b.voteScore;
+          if(keyA > keyB) return -1;
+          if(keyA < keyB) return 1;
+          return 0;
+      }) 
+      return{
+        posts : editedPosts
       }
     default :
       return state
