@@ -15,7 +15,8 @@ import {
   NEW_COMMENT,
   REMOVE_COMMENT,
   MODIFY_COMMENT,
-  HOME_VOTE_POST
+  HOME_VOTE_POST,
+  GONE_POST
 } from '../actions'
 
 const initialState = {}
@@ -57,9 +58,13 @@ function post(state = initialState, action) {
       posts : categoryPosts
     }
     case REMOVE_POST :
-      let removePosts = state.posts.slice(0)
+      let removePosts = state.posts.slice(0).filter(entry => entry.id !== post.id)
       return {
         posts : removePosts
+      }
+    case GONE_POST:
+      return {
+        posts : post
       }
     case MODIFY_POST :
       return{

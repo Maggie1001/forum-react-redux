@@ -3,7 +3,7 @@ import '../App.css';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
-import { getPost, getComments, deletePost, editPost, addComment, deleteComment, editComment, vote, votePost } from '../actions/index.js'
+import { getPost, getComments, vanquishPost, editPost, addComment, deleteComment, editComment, vote, votePost } from '../actions/index.js'
 import Modal from 'react-modal'
 import EditPostForm from './editPostForm'
 import AddCommentForm from './AddCommentForm'
@@ -25,6 +25,8 @@ class Post extends Component {
     this.props.getPost(post)
     this.props.getComments(post)
   }
+
+
 
   deletePost = (post) => {
     this.props.deletePost(this.props.match.params.post)
@@ -120,8 +122,8 @@ class Post extends Component {
               </div>
 
               <span >{this.props.post.body}</span>
+              
             </div>
-
             <div className="post-buttons">
                 <div>
                   <button type="button" onClick={this.deletePost}>Delete Post</button>
@@ -164,6 +166,14 @@ class Post extends Component {
       }
 
         <ul className="comments">
+          <div>
+            {this.props.comments ? (
+
+              <span> Comment Count: {this.props.comments.length}</span>
+              ) : (
+                null
+              )}
+            </div>
            {this.props.comments ? (
               this.props.comments.map((comment) => {
                 return <li key={comment.id}>
@@ -225,7 +235,7 @@ function mapDispatchToProps(dispatch){
 
     getPost : post => dispatch(getPost(post)),
     getComments : post => dispatch(getComments(post)),
-    deletePost : post => dispatch(deletePost(post)),
+    deletePost : post => dispatch(vanquishPost(post)),
     editPost : post => dispatch(editPost(post)),
     addComment : comment => dispatch(addComment(comment)),
     deleteComment : comment => dispatch(deleteComment(comment)),

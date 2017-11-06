@@ -11,6 +11,7 @@ export const GRAB_POST = 'GRAB_POST'
 export const REMOVE_POST = 'REMOVE_POST'
 export const MODIFY_POST = 'MODIFY_POST'
 export const HOME_VOTE_POST = 'HOME_VOTE_POST'
+export const GONE_POST = 'GONE_POST'
 
 export const GRAB_COMMENTS = 'GRAB_COMMENTS'
 export const NEW_COMMENT = 'NEW_COMMENT'
@@ -109,10 +110,23 @@ export const removePost = (post) => ({
 });
 
 
+export const gonePost = (post) => ({
+
+  type: GONE_POST,
+  post
+
+});
+
 export const deletePost = post => dispatch => (
  APIUtil.removePost(post)
  .then(post => dispatch(removePost(post)))
 );
+
+export const vanquishPost = post => dispatch => (
+ APIUtil.removePost(post)
+ .then(post => dispatch(gonePost(post)))
+);
+
 
 export const modifyPost = (post) => ({
 
@@ -156,6 +170,8 @@ export const deleteComment = comment => dispatch => (
  APIUtil.deleteComment(comment)
  .then(post => dispatch(removeComment(comment)))
 );
+
+
 
 export const modifyComment = (comment) => ({
 

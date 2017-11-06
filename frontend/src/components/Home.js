@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { connect } from 'react-redux';
-import { getAllCategories, getAllPosts, addPost, votePostHome, getComments, editPostHome } from '../actions/index.js'
+import { getAllCategories, getAllPosts, addPost, votePostHome, getComments, editPostHome, deletePost } from '../actions/index.js'
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import Modal from 'react-modal'
@@ -34,14 +34,25 @@ class Home extends Component {
     }
     this.setState( (prevState) => {
       let newComments = [];
+      let newPosts = [];
       if(nextProps.comments){
         newComments = prevState.comments.concat(nextProps.comments)
       }
+      if(this.isObject(nextProps.posts)){
+        newPosts = [];
+      }else{
+        newPosts = nextProps.posts
+      }
+
       return {
-        posts : nextProps.posts,
+        posts : newPosts,
         comments : newComments
       }
     })
+  }
+
+  isObject = (item) => {
+    return item && typeof item === 'object' && item.constructor === Object;
   }
 
   getCommentsForPosts = (post) => {
@@ -101,6 +112,9 @@ class Home extends Component {
   }
 
 
+  deletePost = (post) => {   
+    this.props.deletePost(post)
+  }
 
 
 
@@ -111,16 +125,16 @@ class Home extends Component {
       posts = this.props.posts.sort((a,b) => {
           const keyA = a.voteScore;
           const keyB = b.voteScore;
-          if(keyA < keyB) return -1;
-          if(keyA > keyB) return 1;
+          if(keyA > keyB) return -1;
+          if(keyA < keyB) return 1;
           return 0;
       })
     }else if(e.target.value === "voteLow"){
       posts =  this.props.posts.sort((a,b) => {
           const keyA = a.voteScore;
           const keyB = b.voteScore;
-          if(keyA > keyB) return -1;
-          if(keyA < keyB) return 1;
+          if(keyA < keyB) return -1;
+          if(keyA > keyB) return 1;
           return 0;
       })
     }else{
@@ -144,6 +158,7 @@ class Home extends Component {
 
 
   render() {  
+    console.log("posts", this.state.posts)
     return (
       <div className="App">
       <h1>CATEGORIES</h1>
@@ -200,9 +215,10 @@ class Home extends Component {
                       <span><button className="post-voting-down" type="button" onClick={() => this.downPostVote(post.id)}>""</button></span>
                     </div>
                     <div className="post-buttons">
-                        <div>
-                          <button type="button" >Delete Post</button>
-                        </div>
+                    <div>
+                      <button type="button" onClick={() => this.deletePost(post.id)}>Delete Post</button>
+                    </div>
+
                         <div>
                           <button type="button" onClick={() => this.modalToggle("openEdit", post)}>Edit Post</button>
                         </div>
@@ -258,8 +274,8 @@ function mapDispatchToProps(dispatch){
     createPost : (data) => dispatch(addPost(data)),
     getComments : post => dispatch(getComments(post)),
     editPostHome : post => dispatch(editPostHome(post)),
-    votePost : (post, option) => dispatch(votePostHome(post,option))
-
+    votePost : (post, option) => dispatch(votePostHome(post,option)),
+    deletePost : post => dispatch(deletePost(post)),
 
   }
 }
