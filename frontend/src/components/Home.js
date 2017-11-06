@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { connect } from 'react-redux';
-import { getAllCategories, getAllPosts, addPost, votePostHome, getComments } from '../actions/index.js'
+import { getAllCategories, getAllPosts, addPost, votePostHome, getComments, editPostHome } from '../actions/index.js'
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import Modal from 'react-modal'
 import AddPostForm from './AddPostForm'
+import EditPostForm from './editPostForm'
 
 
 class Home extends Component {
@@ -15,8 +16,10 @@ class Home extends Component {
 
     posts : [],
     sortChoice : "voteHigh",
-    open : false,
-    comments : []
+    openAdd : false,
+    comments : [],
+    openEdit : false,
+    editPost : {}
 
   }
 
@@ -57,14 +60,37 @@ class Home extends Component {
    return comments.length
   }
 
-  addPost = (e,info) => {
-    e.preventDefault()
-    this.props.createPost(info)
-    this.modalToggle()
+  modalToggle = (option, post={}) => {
+    if(this.state[option]){
+      var change = false;
+    }else{
+      var change = true;
+    }
+
+    this.setState({
+      [option] : change,
+      editPost : post
+    })
 
   }
 
-    upPostVote = (post) =>{
+
+  addPost = (e,info) => {
+    e.preventDefault()
+    this.props.createPost(info)
+    this.modalToggle("openAdd")
+
+  }
+
+  editPost = (e, post) => {
+    e.preventDefault()
+    this.props.editPostHome(post)
+    this.modalToggle("openEdit")
+  }
+
+
+
+  upPostVote = (post) =>{
     this.props.votePost(post, "upVote")
 
   }
@@ -75,20 +101,6 @@ class Home extends Component {
   }
 
 
-
-
-  modalToggle = () => {
-    if(this.state.open){
-      var change = false;
-    }else{
-      var change = true;
-    }
-
-    this.setState({
-      open : change
-    })
-
-  }
 
 
 
@@ -187,7 +199,16 @@ class Home extends Component {
 
                       <span><button className="post-voting-down" type="button" onClick={() => this.downPostVote(post.id)}>""</button></span>
                     </div>
+                    <div className="post-buttons">
+                        <div>
+                          <button type="button" >Delete Post</button>
+                        </div>
+                        <div>
+                          <button type="button" onClick={() => this.modalToggle("openEdit", post)}>Edit Post</button>
+                        </div>
+                    </div>
                   </div>
+
                 </li>
               })
               ) : (
@@ -195,10 +216,19 @@ class Home extends Component {
               )
             }
           </ul>
-          <button type="button" onClick={this.modalToggle}>Add Post</button>
+          <button type="button" onClick={() => this.modalToggle("openAdd")}>Add Post</button>
+          <div>
+            <Modal
+              isOpen={this.state.openEdit}
+              onRequestClose={() => this.modalToggle("openEdit")}
+              contentLabel="Modal"
+              >
+              <EditPostForm body={this.state.editPost.body} title={this.state.editPost.title} id={this.state.editPost.id} change={this.editPost} />
+            </Modal>
+          </div>
           <Modal
-            isOpen={this.state.open}
-            onRequestClose={this.modalToggle}
+            isOpen={this.state.openAdd}
+            onRequestClose={() => this.modalToggle("openAdd")}
             contentLabel="Modal"
           >
             <AddPostForm categories={this.props.categories} change={this.addPost} />
@@ -227,6 +257,7 @@ function mapDispatchToProps(dispatch){
     getPosts : getAllPosts(dispatch),
     createPost : (data) => dispatch(addPost(data)),
     getComments : post => dispatch(getComments(post)),
+    editPostHome : post => dispatch(editPostHome(post)),
     votePost : (post, option) => dispatch(votePostHome(post,option))
 
 

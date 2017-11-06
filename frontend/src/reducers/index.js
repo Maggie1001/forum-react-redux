@@ -25,8 +25,8 @@ function post(state = initialState, action) {
   const {post} = action
   switch(action.type){
     case ADD_POST :
-      let finalPosts = state.posts.slice(0)
-      finalPosts = finalPosts.concat(post)
+      let newPosts = state.posts.slice(0)
+      let finalPosts = newPosts.concat(post)
       return{
         posts : finalPosts
       }
@@ -57,16 +57,18 @@ function post(state = initialState, action) {
       posts : categoryPosts
     }
     case REMOVE_POST :
+      let removePosts = state.posts.slice(0)
       return {
-        posts : state.posts
+        posts : removePosts
       }
     case MODIFY_POST :
       return{
-        post
+        post 
       }
     case HOME_VOTE_POST:
-      let editedPosts = state.posts.filter((post) => post.id !== action.post.id).concat(action.post)
-      let newPosts = editedPosts.sort((a,b) => {
+      let editablePosts = state.posts.slice(0)
+      let editedPosts = editablePosts.filter((post) => post.id !== action.post.id).concat(action.post)
+      let donePosts = editedPosts.sort((a,b) => {
           const keyA = a.voteScore
           const keyB = b.voteScore;
           if(keyA > keyB) return -1;
@@ -122,17 +124,20 @@ function comment(state = initialState, action){
         comments : orderedComments
       }
     case NEW_COMMENT :
-      let finalComments = state.comments.concat(comment)
+      let moreComments = state.comments.slice(0)
+      let finalComments = moreComments.concat(comment)
       return {
         comments : finalComments
       }
     case REMOVE_COMMENT :
-      let filteredComments = state.comments.filter((comment) => comment.id !== action.comment)
+      let filterableComments = state.comments.slice(0)
+      let filteredComments = filterableComments.filter((comment) => comment.id !== action.comment)
       return{
         comments : filteredComments
       }
     case MODIFY_COMMENT :  
-      let editedComments = state.comments.filter((comment) => comment.id !== action.comment.id).concat(action.comment)
+      let editableComments = state.comments.slice(0)
+      let editedComments = editableComments.filter((comment) => comment.id !== action.comment.id).concat(action.comment)
       let newComments = editedComments.sort((a,b) => {
           const keyA = a.voteScore
           const keyB = b.voteScore;

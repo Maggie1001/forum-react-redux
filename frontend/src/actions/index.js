@@ -121,6 +121,11 @@ export const modifyPost = (post) => ({
 
 });
 
+export const editPostHome = post => dispatch => (
+ APIUtil.editPost(post)
+ .then(post => dispatch(homeVotePost(post)))
+);
+
 export const editPost = post => dispatch => (
  APIUtil.editPost(post)
  .then(post => dispatch(modifyPost(post)))
