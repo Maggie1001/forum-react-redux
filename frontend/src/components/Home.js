@@ -158,7 +158,6 @@ class Home extends Component {
 
 
   render() {  
-    console.log("posts", this.state.posts)
     return (
       <div className="App">
       <h1>CATEGORIES</h1>

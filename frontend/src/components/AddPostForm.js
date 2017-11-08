@@ -7,7 +7,7 @@ class AddPostForm extends Component {
 
   state = {
 
-    category : this.props.categories[0].name,
+    category : "",
     title : "",
     author : "",
     body : "",
@@ -15,6 +15,13 @@ class AddPostForm extends Component {
     timestamp :  Date.now()
 
 
+  }
+
+
+  componentWillMount(){
+    this.setState({
+      category : this.props.categories[0].name
+    })
   }
 
   handleChange = (e, type) => {
