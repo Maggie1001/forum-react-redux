@@ -97,7 +97,7 @@ class Post extends Component {
   }
 
   render() {
-    if(this.props.post && this.props.post.error){
+    if(this.props.post && (this.props.post.error || Object.values(this.props.post).length === 0)){
       this.notFound();
     }
     let timestamp = ""
