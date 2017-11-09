@@ -23,6 +23,7 @@ const initialState = {}
 
 function post(state = initialState, action) {
 
+
   const {post} = action
   switch(action.type){
     case ADD_POST :

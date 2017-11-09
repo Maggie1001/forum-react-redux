@@ -75,6 +75,10 @@ class Post extends Component {
 
   }
 
+  notFound = () => {
+    this.props.history.push('/404')
+  }
+
 
   modalToggle = (option,comment="") => {
     if(this.state[option]){
@@ -93,6 +97,9 @@ class Post extends Component {
   }
 
   render() {
+    if(this.props.post && this.props.post.error){
+      this.notFound();
+    }
     let timestamp = ""
     if(this.props.post){
       let date = new Date(this.props.post.timestamp*1000)

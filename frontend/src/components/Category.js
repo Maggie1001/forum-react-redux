@@ -17,7 +17,7 @@ class Category extends Component {
 
 
   render() {
-    console.log(this.props.children)
+    
     return (
       <div className="category-wrapper">
         {this.props.match.params.category ? (
