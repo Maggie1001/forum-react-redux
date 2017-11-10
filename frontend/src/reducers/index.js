@@ -51,8 +51,8 @@ function post(state = initialState, action) {
     let categoryPosts = action.posts.sort((a,b) => {
         const keyA = a.voteScore
         const keyB = b.voteScore;
-        if(keyA < keyB) return -1;
-        if(keyA > keyB) return 1;
+        if(keyA > keyB) return -1;
+        if(keyA < keyB) return 1;
         return 0;
     })
     return{

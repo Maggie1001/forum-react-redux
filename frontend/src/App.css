@@ -1,6 +1,5 @@
 html{
-  background: url("./images/polar-bear.jpg"), radial-gradient(#396000, #00FFFF);
-  background-size: cover;
+  background-color: #D3D3D3;
   background-blend-mode: multiply;
   box-sizing: border-box;
 }
@@ -16,9 +15,19 @@ html{
   text-align: center;
 }
 
+
+.navBar h1{
+  border-style: none;
+  color: black;
+}
+
+.NavIcon{
+  display: none;
+}
+
 html *{
   color: black;
-  font-family: 'Raleway', sans-serif;
+  font-family: 'Roboto', sans-serif;
 }
 
 h1{
