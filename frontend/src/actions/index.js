@@ -1,24 +1,21 @@
 import * as APIUtil from '../utils/api';
 
-export const RECEIVE_CATEGORIES = "RECEIVE_CATEGORIES";
-
-export const ADD_POST = 'ADD_POST'
-export const CREATE_POST = 'CREATE_POST'
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const CATEGORY_POSTS = 'CATEGORY_POSTS'
-export const GET_POST = 'GET_POST'
-export const GRAB_POST = 'GRAB_POST'
-export const REMOVE_POST = 'REMOVE_POST'
-export const MODIFY_POST = 'MODIFY_POST'
-export const HOME_VOTE_POST = 'HOME_VOTE_POST'
-export const GONE_POST = 'GONE_POST'
-
-export const GRAB_COMMENTS = 'GRAB_COMMENTS'
-export const NEW_COMMENT = 'NEW_COMMENT'
-export const REMOVE_COMMENT = 'REMOVE_COMMENT'
-export const MODIFY_COMMENT = 'MODIFY_COMMENT'
-
-export const GET_CATEGORY = 'GET_CATEGORY'
+import {ADD_POST,
+CREATE_POST ,
+RECEIVE_POSTS,
+CATEGORY_POSTS,
+GET_POST,
+GRAB_POST ,
+REMOVE_POST ,
+MODIFY_POST ,
+HOME_VOTE_POST,
+GONE_POST,
+GRAB_COMMENTS ,
+NEW_COMMENT,
+REMOVE_COMMENT ,
+MODIFY_COMMENT,
+GET_CATEGORY,
+RECEIVE_CATEGORIES} from './actionTypes.js'
 
 export const receiveCategories = (categories) => ({
   type: RECEIVE_CATEGORIES,

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import '../App.css';
 import { connect } from 'react-redux';
-import { getAllCategories, getAllPosts, addPost, votePostHome, getComments, editPostHome, deletePost } from '../actions/index.js'
+import { getAllCategories, getAllPosts, addPost, votePostHome, getComments, editPostHome, deletePost } from '../actions'
 import { Link } from 'react-router-dom'
 import { Route } from 'react-router-dom'
 import Modal from 'react-modal'

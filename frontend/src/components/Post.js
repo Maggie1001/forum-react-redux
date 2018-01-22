@@ -8,6 +8,7 @@ import Modal from 'react-modal'
 import EditPostForm from './editPostForm'
 import AddCommentForm from './AddCommentForm'
 import EditCommentForm from './EditCommentForm'
+import CommentBody from './comment'
 
 
 class Post extends Component {
@@ -78,6 +79,8 @@ class Post extends Component {
   notFound = () => {
     this.props.history.push('/404')
   }
+
+
 
 
   modalToggle = (option,comment="") => {
@@ -174,48 +177,16 @@ class Post extends Component {
 
         <ul className="comments">
           <div>
-            {this.props.comments ? (
+        {this.props.comments ? <div> Comment Count: {this.props.comments.length}</div> : null }
 
-              <span> Comment Count: {this.props.comments.length}</span>
+            {this.props.comments ? (
+                this.props.comments.map((comment) => (
+                  <CommentBody key={comment.id} comment={comment} upVote={this.upVote} downVote={this.downVote} deleteComment={this.deleteComment} modalToggle={this.modalToggle}/>
+                ))
               ) : (
                 null
               )}
             </div>
-           {this.props.comments ? (
-              this.props.comments.map((comment) => {
-                return <li key={comment.id}>
-                <div className="comment-body">
-                    <div className="post-voting">
-                      <span><button type="button" onClick={(id) => this.upVote(comment.id)}>""</button></span>
-
-                      <span>{comment.voteScore}</span>
-
-                      <span><button className="post-voting-down" type="button" onClick={(id) => this.downVote(comment.id)}>""</button></span>
-
-                    </div>
-
-                    <span>{comment.body}</span>
-
-                  </div>
-                  <span>{comment.author}</span>
-
-                  <div className="comment-buttons">
-                  <div>
-                    <button type="button"  onClick={(id) => this.deleteComment(comment.id)}>Delete Comment</button>
-                  </div>
-
-                  <div>
-                    <button type="button"  onClick={() => this.modalToggle("openEditComment", comment)}>Edit Comment</button>
-                  </div>
-
-                  </div>
-
-                </li>
-              })
-              ) : (
-              null
-              )
-            }
           </ul>
           <div>
               <Modal
@@ -224,7 +195,7 @@ class Post extends Component {
                 contentLabel="Modal">
                 <EditCommentForm body={this.state.comment.body} id={this.state.comment.id} voteCount={this.state.comment.voteCount}  change={this.editComment} />
               </Modal>
-            </div>
+          </div>
       </div>
     );
   }

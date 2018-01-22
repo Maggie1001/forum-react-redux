@@ -1,5 +1,3 @@
-import {combineReducers} from 'redux'
-
 import {ADD_POST,
 CREATE_POST ,
 RECEIVE_POSTS,
@@ -19,7 +17,7 @@ RECEIVE_CATEGORIES} from '../actions/actionTypes.js'
 
 const initialState = {}
 
-function post(state = initialState, action) {
+export const post = function(state = initialState, action) {
 
 
   const {post} = action
@@ -88,85 +86,5 @@ function post(state = initialState, action) {
 
 
 }
-
-function category(state = initialState, action){
-
-
-  const {category} = action
-
-  switch(action.type){
-    case RECEIVE_CATEGORIES :
-      return {
-        categories : action.categories
-      }
-    case GET_CATEGORY :
-      return {
-        category
-      }
-    default :
-      return state
-
-  }
-
-
-}
-
-
-function comment(state = initialState, action){
-
-  const {comment} = action
-  switch(action.type){
-    case GRAB_COMMENTS :
-      let orderedComments = action.comments.sort((a,b) => {
-          const keyA = a.voteScore
-          const keyB = b.voteScore;
-          if(keyA > keyB) return -1;
-          if(keyA < keyB) return 1;
-          return 0;
-      })
-      return {
-        comments : orderedComments
-      }
-    case NEW_COMMENT :
-      let moreComments = state.comments.slice(0)
-      let finalComments = moreComments.concat(comment)
-      return {
-        comments : finalComments
-      }
-    case REMOVE_COMMENT :
-      let filterableComments = state.comments.slice(0)
-      let filteredComments = filterableComments.filter((comment) => comment.id !== action.comment)
-      return{
-        comments : filteredComments
-      }
-    case MODIFY_COMMENT :  
-      let editableComments = state.comments.slice(0)
-      let editedComments = editableComments.filter((comment) => comment.id !== action.comment.id).concat(action.comment)
-      let newComments = editedComments.sort((a,b) => {
-          const keyA = a.voteScore
-          const keyB = b.voteScore;
-          if(keyA > keyB) return -1;
-          if(keyA < keyB) return 1;
-          return 0;
-      }) 
-      return{
-        comments :  newComments
-      }
-    default :
-      return state
-
-  }
-
-
-}
-
-
-
-
-
-
-export default combineReducers({
-  post, category, comment
-})
 
 
